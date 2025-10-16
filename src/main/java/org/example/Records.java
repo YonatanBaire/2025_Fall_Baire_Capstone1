@@ -12,16 +12,20 @@ public class Records {
         boolean inReports = true;
 
         while (inReports) {
+            System.out.println("\n" + "=".repeat(50));
+            System.out.println(Ledger.Colors.CYAN + Ledger.Colors.BOLD + "               REPORTS MENU"+ Ledger.Colors.RESET);
+            System.out.println("=".repeat(50));
             System.out.println("""
-                    
-                    === Reports Menu ===
                     1) Month To Date
                     2) Previous Month
                     3) Year To Date
                     4) Previous Year
                     5) Search by Vendor
+                    6) Custom Search
                     0) Back to Ledger
                     """);
+            System.out.println("=".repeat(50));
+            System.out.print("Please select an option: ");
 
             String input = scanner.nextLine();
 
@@ -40,6 +44,9 @@ public class Records {
                     break;
                 case "5":
                     searchByVendor(transactions);
+                    break;
+                case "6":
+                    customSearch(transactions);
                     break;
                 case "0":
                     inReports = false;
@@ -150,4 +157,76 @@ public class Records {
         }
         System.out.println("----------------------------------------\n");
     }
+    public static void customSearch(List<Transactions> transactions) {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("\n=== Custom Search ===");
+    System.out.println("(Leave blank to skip any filter)\n");
+
+    // Get search criteria
+    System.out.print("Start Date (YYYY-MM-DD): ");
+    String startDateStr = scanner.nextLine().trim();
+    LocalDate startDate = startDateStr.isEmpty() ? null : LocalDate.parse(startDateStr);
+
+    System.out.print("End Date (YYYY-MM-DD): ");
+    String endDateStr = scanner.nextLine().trim();
+    LocalDate endDate = endDateStr.isEmpty() ? null : LocalDate.parse(endDateStr);
+
+    System.out.print("Description: ");
+    String description = scanner.nextLine().trim();
+
+    System.out.print("Vendor: ");
+    String vendor = scanner.nextLine().trim();
+
+    System.out.print("Amount: ");
+    String amountStr = scanner.nextLine().trim();
+    Double amount = amountStr.isEmpty() ? null : Double.parseDouble(amountStr);
+
+    // Display results
+    System.out.println("\n=== Search Results ===");
+    System.out.println("----------------------------------------");
+
+    List<Transactions> sorted = new ArrayList<>(transactions);
+    Collections.reverse(sorted);
+
+    boolean found = false;
+    for (Transactions t : sorted) {
+        boolean matches = true;
+
+        // Filter by start date
+        if (startDate != null && t.getDate().isBefore(startDate)) {
+            matches = false;
+        }
+
+        // Filter by end date
+        if (endDate != null && t.getDate().isAfter(endDate)) {
+            matches = false;
+        }
+
+        // Filter by description (case insensitive, partial match)
+        if (!description.isEmpty() && !t.getDescription().toLowerCase().contains(description.toLowerCase())) {
+            matches = false;
+        }
+
+        // Filter by vendor (case insensitive, partial match)
+        if (!vendor.isEmpty() && !t.getVendor().toLowerCase().contains(vendor.toLowerCase())) {
+            matches = false;
+        }
+
+        // Filter by amount (exact match)
+        if (amount != null && t.getAmount() != amount) {
+            matches = false;
+        }
+
+        if (matches) {
+            System.out.println(t);
+            found = true;
+        }
+    }
+
+    if (!found) {
+        System.out.println("No transactions found matching your criteria.");
+    }
+    System.out.println("----------------------------------------\n");
+}
 }

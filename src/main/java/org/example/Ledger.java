@@ -8,20 +8,23 @@ import java.util.Scanner;
 
 public class Ledger {
 
-     public static void showLedgerMenu(List<Transactions> transactions) {
+    public static void showLedgerMenu(List<Transactions> transactions) {
         Scanner scanner = new Scanner(System.in);
         boolean inLedger = true;
 
         while (inLedger) {
+            System.out.println("\n" + "=".repeat(50));
+            System.out.println(Colors.RED + Colors.BOLD + "               LEDGER MENU" + Colors.RESET);
+            System.out.println("=".repeat(50));
             System.out.println("""
-                    
-                    === Ledger Menu ===
                     A) All - Display all entries
                     D) Deposits - Display only deposits
                     P) Payments - Display only payments
                     R) Reports - Run reports
                     H) Home - Return to main menu
                     """);
+            System.out.println("=".repeat(50));
+            System.out.print("Please select an option: ");
 
             String input = scanner.nextLine().toUpperCase();
 
@@ -88,6 +91,14 @@ public class Ledger {
             }
         }
         System.out.println("----------------------------------------\n");
+    }
+
+    public class Colors {
+        public static final String RESET = "\u001B[0m";
+        public static final String BOLD = "\u001B[1m";
+        public static final String CYAN = "\u001B[36m";
+        public static final String RED = "\u001B[31m";
+//        public static final String BG_PURPLE = "\u001B[45m";
     }
 }
 

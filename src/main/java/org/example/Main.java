@@ -1,5 +1,6 @@
 package org.example;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -14,12 +15,16 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (running) {
+            System.out.println("\n" + "=".repeat(50));
+            System.out.println(Ledger.Colors.CYAN + Ledger.Colors.BOLD +"          ACCOUNT LEDGER APPLICATION" + Ledger.Colors.RESET);
             System.out.println("""
                     D)Add Deposit
                     P)Make Payment (Debit)
                     L)Ledger
                     X)Exit
                     """);
+            System.out.println("=".repeat(50));
+    System.out.print("Please select an option: ");
             String input = scanner.nextLine().toUpperCase();
 
             switch (input) {
@@ -47,15 +52,6 @@ public class Main {
 
     }
 
-//    public static void showAllTransactions(List<Transactions> transactions) {
-//        System.out.println("\nAll Transactions:");
-//        System.out.println("----------------------------------------");
-//        for (Transactions transaction : transactions) {
-//            System.out.println(transaction);
-//        }
-//        System.out.println("----------------------------------------\n");
-//    }
-
     public static void addDeposit(List<Transactions> transactions) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n=== Add Deposit ===");
@@ -68,7 +64,7 @@ public class Main {
         System.out.print("Enter vendor: ");
         String vendor = scanner.nextLine();
 
-        System.out.print("Enter amount: ");
+        System.out.print("Enter amount:$ ");
         double amount = Math.abs(Double.parseDouble(scanner.nextLine())); // Make positive
 
         // Create the transaction
@@ -106,6 +102,5 @@ public class Main {
         System.out.println("\nPayment added successfully!\n");
 
     }
+
 }
-
-
