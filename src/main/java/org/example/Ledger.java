@@ -11,7 +11,7 @@ public class Ledger {
     public static void showLedgerMenu(List<Transactions> transactions) {
         Scanner scanner = new Scanner(System.in);
         boolean inLedger = true;
-
+//
         while (inLedger) {
             System.out.println("\n" + "=".repeat(50));
             System.out.println(Colors.RED + Colors.BOLD + "               LEDGER MENU" + Colors.RESET);
