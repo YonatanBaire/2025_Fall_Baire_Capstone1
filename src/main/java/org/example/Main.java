@@ -64,8 +64,17 @@ public class Main {
         System.out.print("Enter vendor: ");
         String vendor = scanner.nextLine();
 
-        System.out.print("Enter amount:$ ");
-        double amount = Math.abs(Double.parseDouble(scanner.nextLine())); // Make positive
+        double amount;
+        while (true) {
+            try {
+                System.out.print("Enter amount: $");
+                amount = Double.parseDouble(scanner.nextLine());
+                if (amount > 0) break;
+                System.out.println("Amount must be positive.");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid amount. Please enter a number.");
+            }
+        }
 
         // Create the transaction
         Transactions newTransaction = new Transactions(localDate, localTime, description, vendor, amount);
