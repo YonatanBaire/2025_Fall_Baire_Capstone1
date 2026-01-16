@@ -67,10 +67,9 @@ public class Main {
         System.out.print("Enter amount:$ ");
         double amount = Math.abs(Double.parseDouble(scanner.nextLine())); // Make positive
 
-        // Create the transaction
         Transactions newTransaction = new Transactions(localDate, localTime, description, vendor, amount);
 
-        // Add to list and save to file
+
         transactions.add(newTransaction);
         TransactionManager.saveTransaction(newTransaction);
 
@@ -92,10 +91,10 @@ public class Main {
         System.out.print("Enter amount: ");
         double amount = -Math.abs(Double.parseDouble(scanner.nextLine())); // Make negative
 
-        // Create the transaction
+
         Transactions newTransaction = new Transactions(localDate, localTime, description, vendor, amount);
 
-        // Add to list and save to file
+
         transactions.add(newTransaction);
         TransactionManager.saveTransaction(newTransaction);
 
