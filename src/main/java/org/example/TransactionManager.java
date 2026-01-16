@@ -54,4 +54,31 @@ public class TransactionManager {
             System.out.println("Error saving transaction: " + ex.getMessage());
         }
     }
+    public static void deleteTransaction(List<Transactions> transactions, int index) {
+        try {
+            FileWriter fw = new FileWriter("src/main/resources/transactions.csv");
+            BufferedWriter writer = new BufferedWriter(fw);
+
+            // Remove the transaction at the specified index
+            transactions.remove(index);
+
+            // Write all remaining transactions
+            for (Transactions transaction : transactions) {
+                String line = String.format("%s|%s|%s|%s|%.2f%n",
+                        transaction.getDate(),
+                        transaction.getTime(),
+                        transaction.getDescription(),
+                        transaction.getVendor(),
+                        transaction.getAmount());
+
+                writer.write(line);
+            }
+            writer.close();
+
+            System.out.println("Transaction deleted successfully!");
+
+        } catch (IOException ex) {
+            System.out.println("Error deleting transaction: " + ex.getMessage());
+        }
+    }
 }
